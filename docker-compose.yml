@@ -1,0 +1,33 @@
+version: '3.8'
+services:
+  app:
+    build:
+      dockerfile: server/Dockerfile
+    depends_on:
+      - postgres
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./server/:/usr/src/app/
+      # - /usr/src/app/node_modules
+  postgres:
+    image: postgres:15-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=db
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./database-seed/init.sql:/docker-entrypoint-initdb.d/init.sql
+  # PostgreSQL pgAdmin panel accessible at http://localhost:16543/
+  pgadmin-compose:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "root@root.com"
+      PGADMIN_DEFAULT_PASSWORD: "root123!"
+    ports:
+      - "16543:80"
+    depends_on:
+      - postgres
