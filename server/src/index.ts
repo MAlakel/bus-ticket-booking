@@ -1,11 +1,11 @@
-import express, { Express } from 'express'
-import './config'
-import 'reflect-metadata'
-import ApiError from './utils/ApiError'
-import httpStatus from 'http-status'
-import routes from './routes/v1'
-import errorHandler from './middlewares/errorHandler'
-import errorConverter from './middlewares/errorHandler copy'
+import express, { Express } from 'express';
+import './config';
+import 'reflect-metadata';
+import ApiError from './utils/ApiError';
+import httpStatus from 'http-status';
+import routes from './routes/v1';
+import errorHandler from './middlewares/errorHandler';
+import errorConverter from './middlewares/errorConverter';
 
 const app: Express = express();
 const port = process.env.PORT;

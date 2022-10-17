@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import TripService from '../services/TripService'
+import TripService from '../services/TripService';
 import catchAsync from '../utils/CatchAsync';
 
 export default class TripController {

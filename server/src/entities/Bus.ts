@@ -1,14 +1,14 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany, Relation } from 'typeorm'
-import Trip from './Trip'
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, Relation } from 'typeorm';
+import Trip from './Trip';
 
 @Entity()
 export default class Bus {
-    @PrimaryGeneratedColumn()
-    id!: number
+  @PrimaryGeneratedColumn()
+    id!: number;
 
-    @Column()
-    type!: string
+  @Column()
+    type!: string;
 
-    @OneToMany(() => Trip, (trip) => trip.bus)
-    trips: Relation<Trip[]>
+  @OneToMany(() => Trip, (trip) => trip.bus)
+    trips: Relation<Trip[]>;
 }

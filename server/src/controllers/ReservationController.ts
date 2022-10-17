@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import ReservationService from '../services/ReservationService'
+import ReservationService from '../services/ReservationService';
 import catchAsync from '../utils/CatchAsync';
 
 export default class ReservationController {
