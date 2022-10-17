@@ -60,4 +60,12 @@ export default class ReservationRepository {
     reservations.forEach((reservation: any) => reservation.confirmed = true);
     return reservationRepository.save(reservations);
   };
+
+  public getFrequentReservations = async () => {
+    const reservationRepository = AppDataSource.getRepository(Reservation);
+    return reservationRepository.find({
+      where: { confirmed: true },
+      relations: { trip: { route: { pickup: true, destination: true } } },
+    });
+  };
 }

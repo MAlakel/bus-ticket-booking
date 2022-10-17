@@ -67,4 +67,8 @@ export default class ReservationService {
     console.log('applicableReservations: ', applicableReservations);
     return this.reservationRepositroy.confirmReservation(reservations);
   };
+
+  public getFrequentReservations = async () => {
+    return this.reservationRepositroy.getFrequentReservations();
+  };
 }

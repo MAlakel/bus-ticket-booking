@@ -16,4 +16,9 @@ export default class ReservationController {
     const reservations = await this.reservationService.confirmReservations(req.body);
     res.send(reservations);
   });
+
+  public getFrequentReservations = catchAsync(async (req: Request, res: Response) => {
+    const trips = await this.reservationService.getFrequentReservations();
+    res.send(trips);
+  });
 }

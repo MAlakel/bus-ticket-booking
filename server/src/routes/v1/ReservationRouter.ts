@@ -12,4 +12,8 @@ reservationRouter
   .route('/confirm')
   .post(reservationController.confirmReservations);
 
+reservationRouter
+  .route('/frequent')
+  .get(reservationController.getFrequentReservations);
+
 export default reservationRouter;
