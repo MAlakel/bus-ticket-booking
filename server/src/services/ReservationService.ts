@@ -14,10 +14,15 @@ export default class ReservationService {
   sessionTimeout = 2;
 
   public startReservation = async (reservation: any) => {
+    // check if sears are unique
+    const requestedSeats = reservation.passengers.map((passenger: any) => passenger.seat);
+    if (requestedSeats.length !== new Set(requestedSeats).size) {
+      throw new Error('cannot reserve the same set multiple times');
+    }
     const route = await this.routeRepositroy.getRoute(reservation.pickup, reservation.destination);
     console.log('route:', route);
     if (route === null) {
-      throw Error('route does not exist');
+      throw new Error('route does not exist');
     }
     // get today's trip
     let trip = await this.tripRepositroy.getTrip(route.id, new Date().toLocaleDateString());
@@ -41,11 +46,10 @@ export default class ReservationService {
         throw Error('Another reservation is in progress, please try again later');
       }
       // check seat availability
-      const requestedSeats = reservation.passengers.map((passenger: any) => passenger.seat);
       const seatReservations = await this.reservationRepositroy.getReservations(trip.id, [], requestedSeats, true);
-      console.log('bookedSeats:', seatReservations);
+      console.log('reservedSeats:', seatReservations);
       if (seatReservations.length > 0) {
-        throw Error('one or more seats already booked');
+        throw Error('one or more seats already reserved');
       }
     }
 

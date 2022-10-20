@@ -79,21 +79,21 @@ export default class ReservationRepository {
       .select(['sq.email', 'max(sq.routecount) maxroutecount'])
       .from((subQuery) => {
         return subQuery
-          .from(Reservation, "reservation")
+          .from(Reservation, 'reservation')
           .innerJoin('reservation.trip', 'trip')
           .innerJoin('trip.route', 'route')
           .select(['reservation.email as email', 'route.id as routeid', 'count(*) as routecount'])
           .where('reservation.confirmed = true')
           .groupBy('reservation.email')
-          .addGroupBy('route.id')
+          .addGroupBy('route.id');
       }, 'sq')
       .groupBy('sq.email')
       .getQuery();
 
-    return await AppDataSource.createQueryBuilder()
+    return AppDataSource.createQueryBuilder()
       .select(['q.email', 'q.routecount as bookings', 'q.pickup', 'q.destination'])
-      .from("(" + countQuery + ")", "q")
-      .innerJoin("(" + maxQuery + ")", "mq", "q.email = mq.email and q.routecount = mq.maxroutecount")
+      .from('(' + countQuery + ')', 'q')
+      .innerJoin('(' + maxQuery + ')', 'mq', 'q.email = mq.email and q.routecount = mq.maxroutecount')
       .getRawMany();
   };
 }
