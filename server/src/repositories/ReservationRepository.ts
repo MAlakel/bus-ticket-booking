@@ -6,8 +6,8 @@ import Crypto from 'crypto';
 
 export default class ReservationRepository {
   public getReservations = (tripId: number | undefined, requestedReservations: string[], requestedSeats: string[], confirmed: boolean) => {
-    const reservationRepository = AppDataSource.getRepository(Reservation);
-    return reservationRepository.find({
+    const reservationDBRepository = AppDataSource.getRepository(Reservation);
+    return reservationDBRepository.find({
       where: {
         confirmed: confirmed,
         ...(requestedReservations && requestedReservations.length > 0 && { id: In(requestedReservations) }),

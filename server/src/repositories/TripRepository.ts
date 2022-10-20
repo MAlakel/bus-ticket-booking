@@ -4,14 +4,14 @@ import Route from '../entities/Route';
 import Trip from '../entities/Trip';
 
 export default class TripRepository {
-  tripRepository = AppDataSource.getRepository(Trip);
+  tripDBRepository = AppDataSource.getRepository(Trip);
 
   public getTrips = (date: string) => {
-    return this.tripRepository.find({ relations: { route: true, bus: true, reservations: true }, where: { date: date, reservations: { confirmed: true } } });
+    return this.tripDBRepository.find({ relations: { route: true, bus: true, reservations: true }, where: { date: date, reservations: { confirmed: true } } });
   };
 
   public getTrip = (routeId: number, date: string) => {
-    return this.tripRepository.findOne({ relations: ['reservations'], where: { date: date, route: { id: routeId } } });
+    return this.tripDBRepository.findOne({ relations: ['reservations'], where: { date: date, route: { id: routeId } } });
   };
 
   public createTrip = async (routeId: number, busId: number, date: string) => {
@@ -21,7 +21,7 @@ export default class TripRepository {
     trip.bus.id = busId;
     trip.route.id = routeId;
     trip.date = date;
-    const createdTrip = this.tripRepository.create(trip);
-    return this.tripRepository.save(createdTrip);
+    const createdTrip = this.tripDBRepository.create(trip);
+    return this.tripDBRepository.save(createdTrip);
   };
 }
