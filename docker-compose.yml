@@ -20,7 +20,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - ./database-seed/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./database-seed.sql:/docker-entrypoint-initdb.d/init.sql
   # PostgreSQL pgAdmin panel accessible at http://localhost:16543/
   pgadmin-compose:
     image: dpage/pgadmin4

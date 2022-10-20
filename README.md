@@ -35,7 +35,7 @@ List of available routes:
 `GET /v1/reservation/frequent` - get frequent reservations\
 
 **Trip routes**:\
-`POST /v1/route` - get available routes\
+`GET /v1/route` - get available routes\
 
 ## Linting
 
